@@ -1,0 +1,33 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'com.movie.easyrpc'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.apache.dubbo:dubbo-spring-boot-starter:2.7.7'
+    compile group: 'com.alibaba.nacos', name: 'nacos-client', version: '1.4.0'
+
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.10'
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
+    implementation("com.google.guava:guava:29.0-jre")
+
+    implementation project(':common')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,33 @@
+server:
+  port: 12311
+spring:
+  datasource:
+    db1:
+      jdbc-url: jdbc:mysql://localhost:3306/movie?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+      username: root
+      password: root
+    db2:
+      jdbc-url: jdbc:mysql://localhost:3306/employees?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+      username: root
+      password: root
+  application:
+    name: demo-service
+dubbo:
+  protocol:
+    name: dubbo
+    port: 20880
+  scan:
+    base-packages: com.movie.module.demo
+  registry:
+    address: nacos://${nacos.server-address}:${nacos.port}/?username=${nacos.username}&password=${nacos.password}
+service:
+  version: 1.0.0
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:9003/eureka/
+nacos:
+  server-address: 127.0.0.1
+  port: 8848
+  username: nacos
+  password: nacos
