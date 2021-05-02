@@ -25,7 +25,7 @@ public class StudentController {
 
     @GetMapping
     public List<Student> list() {
-        studentService.add();
+        studentService.addScore();
         System.out.println(employeeService.list());
         return studentMapper.list();
     }

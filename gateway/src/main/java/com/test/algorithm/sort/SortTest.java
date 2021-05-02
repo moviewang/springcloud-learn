@@ -17,14 +17,14 @@ public class SortTest {
             System.out.println(i);
         }
         System.out.println("----------");
-        int[] arr = {2, 4, 3, 6, 7, 1, 8};
+        int[] arr = {2, 4, 3, 6, 7, 1, 8, 10};
         int[] result = new int[arr.length];
 //        mergeSort(arr, result, 0, arr.length - 1);
-        heapSort(arr);
+//        heapSort(arr);
+        new SortTest().quickSort(arr, 0, arr.length - 1);
         for (int i : arr) {
             System.out.println(i);
         }
-
     }
 
     public static void mergeArray(int[] a, int m, int[] b, int n, int[] c) {
@@ -107,6 +107,39 @@ public class SortTest {
         while (!max.isEmpty()) {
             nums[k++] = max.poll();
         }
+    }
+
+    int partition(int[] nums, int i, int j) {
+        int pviot = nums[i];
+        while (i < j) {
+            while (i < j && pviot < nums[j]) {
+                j--;
+            }
+            nums[i] = nums[j];
+            while (i < j && nums[i] < pviot) {
+                i++;
+            }
+            nums[j] = nums[i];
+        }
+        nums[i] = pviot;
+        return i;
+    }
+
+    /**
+     * 按照原理来写
+     *
+     * @param nums
+     * @param i
+     * @param j
+     */
+    void quickSort(int[] nums, int i, int j) {
+        if (i > j) {
+            return;
+        }
+
+        int mid = partition(nums, i, j);
+        quickSort(nums, i, mid - 1);
+        quickSort(nums, mid + 1, j);
     }
 
 }

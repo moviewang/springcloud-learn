@@ -19,8 +19,14 @@ public class StudentService {
     private ScoreMapper scoreMapper;
 
     @Transactional
-    public void add() {
-        int id = studentMapper.insert("王六", 23);
+    public int add() {
+        return studentMapper.insert("王六", 23);
+    }
+
+    //    @Transactional()
+    public void addScore() {
+        int id = add();
+        int e = 1 / 0;
         scoreMapper.insert(id, 23);
     }
 }

@@ -1,0 +1,61 @@
+package com.test.thread;
+
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
+import java.util.stream.LongStream;
+
+/**
+ * ForkJoinPool求和 * @author 老K
+ */
+public class ForkJoinPoolTest {
+    private static ForkJoinPool forkJoinPool;
+
+    /**
+     * 求和任务类继承RecursiveTask     * ForkJoinTask一共有3个实现：     * RecursiveTask：有返回值     * RecursiveAction：无返回值     * CountedCompleter：无返回值任务，完成任务后可以触发回调
+     */
+    private static class SumTask extends RecursiveTask<Long> {
+        private long[] numbers;
+        private int from;
+        private int to;
+
+        public SumTask(long[] numbers, int from, int to) {
+            this.numbers = numbers;
+            this.from = from;
+            this.to = to;
+        }
+
+        /**
+         * ForkJoin执行任务的核心方法         * @return
+         */
+        @Override
+        protected Long compute() {
+            if (to - from < 10) {
+                long total = 0;
+                for (int i = from; i <= to; i++) {
+                    total += numbers[i];
+                }
+                return total;
+            } else {
+                int middle = (from + to) / 2;
+                SumTask taskLeft = new SumTask(numbers, from, middle);
+                SumTask taskRight = new SumTask(numbers, middle + 1, to);
+                taskLeft.fork();
+                taskRight.fork();
+                return ((Long) (taskLeft.join() + taskRight.join()));
+            }
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        forkJoinPool = new ForkJoinPool(1);
+        long[] numbers = LongStream.rangeClosed(1, 100000000).toArray();
+        Long result = forkJoinPool.invoke(new SumTask(numbers, 0, numbers.length - 1));
+        System.out.println("最终结果:" + result);
+        System.out.println("活跃线程数：" + forkJoinPool.getActiveThreadCount());
+        System.out.println("pool size：" + forkJoinPool.getPoolSize());
+        System.out.println("parallelism：" + forkJoinPool.getParallelism());
+        System.out.println("async mode：" + forkJoinPool.getAsyncMode());
+        System.out.println("窃取任务数：" + forkJoinPool.getStealCount());
+        forkJoinPool.shutdown();
+    }
+}

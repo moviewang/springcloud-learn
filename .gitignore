@@ -1,10 +1,14 @@
 ## ide
 **/.idea
 *.iml
+**/gradle
+**/.gradle
 
 ## backend
 **/target
 **/logs
+**/build/classes
 
 ## front
 **/*.lock
+**/build/

@@ -1,6 +1,13 @@
 server:
   port: 12311
 spring:
+  elasticsearch:
+    rest:
+      #      username:
+      #      password:
+      uris: http://localhost:9200
+      connection-timeout: 5s
+      read-timeout: 50s
   datasource:
     db1:
       jdbc-url: jdbc:mysql://localhost:3306/movie?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
@@ -31,3 +38,6 @@ nacos:
   port: 8848
   username: nacos
   password: nacos
+
+
+

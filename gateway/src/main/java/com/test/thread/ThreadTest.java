@@ -43,6 +43,10 @@ public class ThreadTest {
 //        countDownLatch.await();
         executorService.shutdown();
         System.out.println("finish");
+        TJavaThread tJavaThread = new TJavaThread();
+        tJavaThread.start();
+        tJavaThread.join();
+        System.out.println(tJavaThread.getCount());
     }
 
     public static void test(int i) throws InterruptedException {
@@ -57,4 +61,23 @@ public class ThreadTest {
         System.out.println("threadnum:" + i + "is finish");
     }
 
+    static class TJavaThread extends Thread {
+        static int count = 0;
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 100; i++) {
+                count++;
+            }
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public static void setCount(int count) {
+            TJavaThread.count = count;
+        }
+    }
 }
+

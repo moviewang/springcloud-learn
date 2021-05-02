@@ -12,6 +12,7 @@ public class SearchTest {
         System.out.println(rightBound(nums, 2));
     }
 
+
     public static int binarySearch(int[] nums, int key) {
         int i = 0;
         int j = nums.length - 1;
@@ -65,4 +66,22 @@ public class SearchTest {
         }
         return j;
     }
+
+
+//    public int binarySearch(int[] array, int k) {
+//        int i = 0;
+//        int j = array.length;
+//        int mid = 0;
+//        while (i <= j) {
+//            mid = (i + j) / 2;
+//            if (array[mid] == k) {
+//                return mid;
+//            } else if (array[mid] < k) {
+//                i = mid + 1;
+//            } else {
+//                j = mid - 1;
+//            }
+//        }
+//        return -1;
+//    }
 }
