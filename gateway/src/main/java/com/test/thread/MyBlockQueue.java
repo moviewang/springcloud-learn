@@ -2,6 +2,7 @@ package com.test.thread;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -81,6 +82,14 @@ public class MyBlockQueue {
                 }
             }
         }).start();
+
+        SynchronousQueue<Integer> synchronousQueue = new SynchronousQueue<>();
+        System.out.println(synchronousQueue.offer(1));
+        System.out.println(synchronousQueue.offer(2));
+        System.out.println(synchronousQueue.offer(3));
+        System.out.println(synchronousQueue.offer(4));
+        System.out.println(synchronousQueue.size());
     }
 }
+
 

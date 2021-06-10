@@ -1,5 +1,6 @@
 package com.test.algorithm.sort;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -21,7 +22,8 @@ public class SortTest {
         int[] result = new int[arr.length];
 //        mergeSort(arr, result, 0, arr.length - 1);
 //        heapSort(arr);
-        new SortTest().quickSort(arr, 0, arr.length - 1);
+//        new SortTest().quickSort(arr, 0, arr.length - 1);
+        new SortTest().countSort(arr);
         for (int i : arr) {
             System.out.println(i);
         }
@@ -142,4 +144,20 @@ public class SortTest {
         quickSort(nums, mid + 1, j);
     }
 
+    public void countSort(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return;
+        }
+        int maxVal = Arrays.stream(arr).max().getAsInt();
+        int[] all = new int[maxVal + 1];
+        for (int i : arr) {
+            all[i]++;
+        }
+        int k = 0;
+        for (int i = 0; i < all.length; i++) {
+            for (int j = 0; j < all[i]; j++) {
+                arr[k++] = i;
+            }
+        }
+    }
 }

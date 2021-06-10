@@ -329,13 +329,13 @@ public class Solution {
             List<Integer> collect = null;
             if ((count & 1) == 1) {
                 collect = level.stream()
-                        .map(n -> n.val)
-                        .collect(Collectors.toList());
+                               .map(n -> n.val)
+                               .collect(Collectors.toList());
             } else {
                 collect = level.stream()
-                        .map(n -> n.val)
-                        .sorted(Comparator.reverseOrder())
-                        .collect(Collectors.toList());
+                               .map(n -> n.val)
+                               .sorted(Comparator.reverseOrder())
+                               .collect(Collectors.toList());
             }
             result.add(new ArrayList<>(collect));
             level = newLevel;
@@ -572,5 +572,33 @@ public class Solution {
         return true;
     }
 
+    public void preOrder(TreeNode root, List<Integer> list) {
+        if (root == null) {
+            return;
+        }
+        if (root.left == null && root.right == null) {
+            list.add(root.val);
+        }
+        preOrder(root.left, list);
+        preOrder(root.right, list);
+    }
 
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        if (root1 == null || root2 == null) {
+            return false;
+        }
+        List<Integer> l1 = new ArrayList<>();
+        List<Integer> l2 = new ArrayList<>();
+        preOrder(root1, l1);
+        preOrder(root2, l2);
+        if (l1.size() != l2.size()) {
+            return false;
+        }
+        for (int i = 0; i < l1.size(); i++) {
+            if (l1.get(i) != l2.get(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -1,6 +1,7 @@
 package com.test.algorithm.tree;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -33,6 +34,21 @@ public class TreeNode {
         });
         stringJoiner.add("null");
         System.out.println(stringJoiner.toString());
+
+        PriorityQueue<Integer> max = new PriorityQueue<>((o1, o2) -> o2 - o1);
+        max.add(10);
+        max.add(8);
+        max.add(2);
+        max.add(1);
+        max.add(10);
+//        while (!max.isEmpty()) {
+//            System.out.print(max.poll() + "\t");
+//        }
+        System.out.println();
+        for (Integer nums : max) {
+            System.out.print(nums + " ");
+        }
+        System.out.println();
     }
 
 
@@ -520,6 +536,59 @@ public class TreeNode {
         root.left = left;
         root.right = treeToDoublyListHelper(root.right, tail);
         return left;
+    }
+
+    TreeNode convertBiNodeHelper(TreeNode root, TreeNode tail) {
+        if (root == null) {
+            return tail;
+        }
+        TreeNode left = convertBiNodeHelper(root.left, root);
+        root.left = null;
+        left.right = root;
+        root.right = convertBiNodeHelper(root.right, tail);
+        return left;
+    }
+
+
+    public TreeNode convertBiNode(TreeNode root) {
+        TreeNode head = convertBiNodeHelper(root, null);
+        return head;
+    }
+
+
+    public int kthLargestValue(int[][] matrix, int k) {
+        if (matrix == null || matrix.length == 0) {
+            return -1;
+        }
+        int m = matrix.length;
+        int n = matrix[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+
+            }
+        }
+        return 0;
+    }
+
+    public List<String> topKFrequent(String[] words, int k) {
+        if (words == null || words.length == 0 || k <= 0) {
+            return Collections.emptyList();
+        }
+        Map<String, Long> map = Arrays.stream(words)
+                                      .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        PriorityQueue<Map.Entry<String, Long>> queue = new PriorityQueue<>((o1, o2) -> Objects.equals(o1.getValue(), o2.getValue())
+                ? o1.getKey().compareTo(o2.getKey()) : o2.getValue().compareTo(o1.getValue()));
+        Set<Map.Entry<String, Long>> entries = map.entrySet();
+        for (Map.Entry<String, Long> entry : entries) {
+            queue.offer(entry);
+        }
+        ArrayList<String> res = new ArrayList<>();
+        int cnt = 0;
+        while (!queue.isEmpty() && cnt++ <= k) {
+            res.add(queue.poll().getKey());
+        }
+        return res;
     }
 
 }

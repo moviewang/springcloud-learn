@@ -461,4 +461,101 @@ public class Solution {
         cur.next = l1 != null ? l1 : l2;
         return dummy.next;
     }
+
+
+    ListNode dummy = new ListNode(-1);
+    int size = 0;
+
+    int get(int index) {
+        if (index < 0 || index >= size) {
+            return -1;
+        }
+        ListNode cur = dummy.next;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        return cur.val;
+    }
+
+    void addAtHead(int val) {
+        ListNode node = new ListNode(val);
+        node.next = dummy.next;
+        dummy.next = node;
+        size++;
+    }
+
+    void addAtTail(int val) {
+        ListNode node = new ListNode(val);
+        ListNode cur = dummy.next;
+        while (cur.next != null) {
+            cur = cur.next;
+        }
+        cur.next = node;
+        size++;
+    }
+
+    void addAtIndex(int index, int val) {
+        if (index < 0 || index >= size) {
+            return;
+        }
+        ListNode cur = dummy.next;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        ListNode node = new ListNode(val);
+        node.next = cur.next;
+        cur.next = node;
+        size++;
+    }
+
+    void deleteAtIndex(int index) {
+        if (index < 0 || index >= size) {
+            return;
+        }
+        ListNode cur = dummy.next;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        cur.next = cur.next.next;
+        size--;
+    }
+
+    ListNode reverse(ListNode head) {
+        ListNode cur = head;
+        ListNode pre = null;
+        ListNode next = null;
+        while (cur != null) {
+            next = cur.next;
+            next.next = cur;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+
+
+    ListNode reverse1(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode reverseHead = reverseNode1(head.next);
+        head.next.next = head;
+        head.next.next = null;
+        return reverseHead;
+    }
+
+    ListNode recur(ListNode pre, ListNode cur) {
+        if (pre == null) {
+            return cur;
+        }
+        ListNode next = cur.next;
+        cur.next = pre;
+        return recur(cur, next);
+    }
+
+    ListNode reverse2(ListNode head) {
+        return recur(null, head);
+    }
+
 }

@@ -29,6 +29,9 @@ public class DpTest {
         for (String str : array) {
             System.out.println(str);
         }
+        System.out.println(new DpTest().reverse(-2147483648));
+        int[] test = {1, 3, 1};
+        new DpTest().robrob(test);
     }
 
     public static int f(int n) {
@@ -495,7 +498,7 @@ public class DpTest {
         return ans;
     }
 
-    public int minCostClimbingStairs(int[] cost) {
+    public int minCostClimbingStairs1(int[] cost) {
         if (cost == null || cost.length < 1) {
             return 0;
         }
@@ -1345,11 +1348,7 @@ public class DpTest {
     public int singleNumber(int[] nums) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            if (map.containsKey(nums[i])) {
-                map.put(nums[i], map.get(nums[i]) + 1);
-            } else {
-                map.put(nums[i], 0);
-            }
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
         }
         for (int i = 0; i < nums.length; i++) {
             if (map.get(nums[i]) == 1) {
@@ -1359,6 +1358,33 @@ public class DpTest {
         return -1;
     }
 
+
+    public int reverse(int x) {
+        boolean flag = x < 0 ? true : false;
+        String s = String.valueOf(x);
+        char[] chars = s.toCharArray();
+        int i = 0;
+        if (flag) {
+            i++;
+        }
+        int j = chars.length - 1;
+        while (i < j) {
+            char temp = chars[i];
+            chars[i] = chars[j];
+            chars[j] = temp;
+            i++;
+            j--;
+        }
+        String reverseStr = new String(chars);
+        if (reverseStr.length() == 0) {
+            return 0;
+        }
+        Long ans = Long.valueOf(reverseStr);
+        if (ans > Integer.MAX_VALUE || ans < Integer.MIN_VALUE) {
+            return 0;
+        }
+        return flag ? -ans.intValue() : ans.intValue();
+    }
 
     public int getImportance(List<Employee> employees, int id) {
         Optional<Employee> first = employees.stream().filter(e -> e.id == id).findFirst();
@@ -1370,11 +1396,557 @@ public class DpTest {
         });
         return sum;
     }
-}
 
-class Employee {
-    public int id;
-    public int importance;
-    public List<Integer> subordinates;
-}
+    int leastBricks(List<List<Integer>> wall) {
+        int n = wall.size();
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0, sum = 0; i < n; i++, sum = 0) {
+            for (Integer cur : wall.get(i)) {
+                sum += cur;
+                map.put(sum, map.getOrDefault(sum, 0) + 1);
+            }
+            map.remove(sum);
+        }
+        int ans = n;
+        for (Integer key : map.keySet()) {
+            Integer cnt = map.get(key);
+            ans = Math.min(ans, n - cnt);
+        }
+        return ans;
+    }
 
+    int ans = 0;
+
+    public int deleteAndEarn(int[] nums) {
+        //dp[i] = max(dp[i-1], dp[i-2] * nums[i])
+        if (nums == null || nums.length == 0) {
+            return 0;
+        } else if (nums.length == 1) {
+            return nums[0];
+        }
+
+        int limit = 0;
+        for (int num : nums) {
+            limit = Math.max(num, limit);
+        }
+        int[] all = new int[limit + 1];
+        for (int num : nums) {
+            all[num]++;
+        }
+        int[] dp = new int[limit + 1];
+        dp[1] = all[1];
+        dp[2] = Math.max(dp[1], all[2] * 2);
+        for (int i = 2; i <= limit; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + all[i] * i);
+        }
+        return dp[limit];
+    }
+
+    public int[] decode(int[] encoded, int first) {
+        int[] arr = new int[encoded.length + 1];
+        int cnt = 0;
+        arr[cnt] = first;
+        for (int i : encoded) {
+            first = i ^ first;
+            arr[cnt++] = first;
+        }
+        return arr;
+    }
+
+    public int xorOperation(int n, int start) {
+        if (n <= 0) {
+            return -1;
+        }
+        int[] nums = new int[n];
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            nums[i] = start + 2 * i;
+            sum ^= nums[i];
+        }
+        return sum;
+    }
+
+    public int minDays(int[] bloomDay, int m, int k) {
+        if (bloomDay == null || bloomDay.length == 0) {
+            return -1;
+        }
+        Arrays.sort(bloomDay);
+        for (int i = 0; i < bloomDay.length; i++) {
+            int sum = 0;
+            for (int j = i + 1; j < bloomDay.length; j++) {
+                if (bloomDay[j] <= bloomDay[i]) {
+                    sum++;
+                }
+                if (sum >= m * k) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public int[] decode(int[] encoded) {
+        if (encoded == null || encoded.length == 0) {
+            return new int[]{};
+        }
+        int[] perm = new int[encoded.length + 1];
+        return new int[]{};
+    }
+
+    public int[] xorQueries(int[] arr, int[][] queries) {
+        if (arr == null || arr.length == 0 || queries == null || queries.length == 0) {
+            return new int[]{};
+        }
+
+        int[] sum = new int[arr.length + 1];
+        for (int i = 1; i < arr.length; i++) {
+            sum[i] = sum[i - 1] ^ arr[i];
+        }
+        int[] ans = new int[queries.length];
+        for (int i = 0; i < queries.length; i++) {
+            ans[i] = ans[queries[i][0]];
+        }
+        return ans;
+    }
+
+    public int numWays(int steps, int arrLen) {
+        //dp[i]
+        return 0;
+    }
+
+    public int romanToInt(String s) {
+        if (s == null || s.length() == 0) {
+            return -1;
+        }
+        int i = 0;
+        int sum = 0;
+        int len = s.length();
+        while (i <= len - 1) {
+            if (i < len - 1 && getValue(s.charAt(i + 1)) > getValue(s.charAt(i))) {
+
+                sum -= getValue(s.charAt(i));
+            } else {
+                sum += getValue(s.charAt(i));
+            }
+        }
+        return sum;
+    }
+
+    String getRomanStr(int num) {
+        switch (num) {
+            case 1:
+                return "I";
+            case 4:
+                return "IV";
+            case 5:
+                return "V";
+            case 9:
+                return "IX";
+            case 10:
+                return "X";
+            case 40:
+                return "XL";
+            case 50:
+                return "L";
+            case 90:
+                return "XC";
+            case 100:
+                return "C";
+            case 400:
+                return "CD";
+            case 500:
+                return "D";
+            case 900:
+                return "CM";
+            case 1000:
+                return "M";
+            default:
+                return "";
+        }
+    }
+
+    public String intToRoman(int num) {
+        if (num <= 0) {
+            return "";
+        }
+        int[] nums = {1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000};
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < nums.length; i++) {
+            while (num > 0) {
+                num -= nums[i];
+                sb.append(getRomanStr(nums[i]));
+            }
+        }
+        return sb.toString();
+    }
+
+
+    public int findMaximumXOR(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+        int max = -1;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                max = Math.max(max, nums[i] ^ nums[j]);
+            }
+        }
+        return max;
+    }
+
+    private int getValue(char ch) {
+        switch (ch) {
+            case 'I':
+                return 1;
+            case 'V':
+                return 5;
+            case 'X':
+                return 10;
+            case 'L':
+                return 50;
+            case 'C':
+                return 100;
+            case 'D':
+                return 500;
+            case 'M':
+                return 1000;
+            default:
+                return 0;
+        }
+    }
+
+
+    public int numWays(int n) {
+        int[] memo = new int[n + 1];
+        //f(n) = f(n-1) + f(n-2)
+        if (n == 0) {
+            memo[0] = 1;
+        }
+        if (n == 1) {
+            memo[1] = 1;
+        } else if (n == 2) {
+            memo[2] = 2;
+        }
+        for (int i = 3; i < memo.length; i++) {
+            memo[n] = memo[n - 1] + memo[n - 2];
+        }
+        return memo[n];
+    }
+
+    public boolean isCousins(TreeNode root, int x, int y) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        Map<Integer, TreeNode> map = new HashMap<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if (node.left != null) {
+                queue.offer(node.left);
+                map.put(node.left.val, node);
+            }
+            if (node.right != null) {
+                queue.offer(node.right);
+                map.put(node.right.val, node);
+            }
+        }
+        if (map.get(x) != null && map.get(y) != null && map.get(x) != map.get(y)) {
+            return true;
+        }
+        return false;
+    }
+
+    public int MaxUncrossedLines(int[] nums1, int[] nums2) {
+        //dp[]
+        if (nums1 == null || nums1.length == 0 || nums2 == null || nums2.length == 0) {
+            return 0;
+        }
+        int m = nums1.length;
+        int n = nums2.length;
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (dp[i][j] == dp[i - 1][j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+
+    public int countTriplets(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        int n = arr.length;
+        int cnt = 0;
+        for (int i = 0; i < n; i++) {
+            int xor = arr[i];
+            for (int k = i + 1; k < n; k++) {
+                xor ^= arr[k];
+                if (xor == 0) {
+                    cnt += k - i;
+                }
+            }
+        }
+        return cnt;
+    }
+
+    public int[] maximizeXor(int[] nums, int[][] queries) {
+        if (nums == null || nums.length == 0 || queries == null) {
+            return new int[]{};
+        }
+        int n = queries.length;
+        int[] ans = new int[n];
+        int max = -1;
+        for (int i = 0; i < n; i++) {
+            max = -1;
+            if ((queries[i][0] & 1) == 1) {
+                for (int j = 0; j < nums.length; j++) {
+                    if (nums[j] <= queries[i][1]) {
+                        max = Math.max(max, nums[j] ^ queries[i][0]);
+                    }
+                }
+            }
+
+            ans[i] = max;
+        }
+        return ans;
+    }
+
+
+    public boolean xorGame(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return false;
+        }
+        if (nums.length % 2 == 0) {
+            return true;
+        }
+        int xor = 0;
+        for (int num : nums) {
+            xor ^= num;
+        }
+        return xor == 0;
+    }
+
+    public int strangePrinter(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        int n = s.length();
+        int[][] dp = new int[n][n];
+        for (int i = n - 1; i >= 0; i--) {
+            dp[i][i] = 1;
+            for (int j = i + 1; j < n; j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    dp[i][j] = dp[i][j - 1];
+                } else {
+                    int min = Integer.MAX_VALUE;
+                    for (int k = i; k < j; k++) {
+                        min = Math.min(min, dp[i][k] + dp[k + 1][j]);
+                    }
+                    dp[i][j] = min;
+                }
+            }
+        }
+        return dp[0][n - 1];
+    }
+
+
+    int count = 0;
+
+    public int findTargetSumWays(int[] nums, int target) {
+        backtrack(nums, target, 0, 0);
+        return count;
+    }
+
+    void backtrack(int[] nums, int target, int index, int sum) {
+        if (index == nums.length && target == sum) {
+            count++;
+        } else {
+            backtrack(nums, target, index + 1, sum + nums[index]);
+            backtrack(nums, target, index + 1, sum - nums[index]);
+        }
+    }
+
+    public int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> max = new PriorityQueue<>(Comparator.reverseOrder());
+        for (int stone : stones) {
+            max.offer(stone);
+        }
+        while (max.size() > 1) {
+            int p = max.poll();
+            int q = max.poll();
+            if (p > q) {
+                max.offer(p - q);
+            }
+        }
+        return max.size() == 0 ? 0 : max.poll();
+    }
+
+
+    public int coinChange1(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        dp[0] = 0;
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i <= amount; i++) {
+            for (int j = 0; j < coins.length; j++) {
+                if (i >= coins[j]) {
+                    dp[i] = Math.min(min, dp[i - coins[j]] + 1);
+                }
+            }
+        }
+        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+    }
+
+
+    public int minCostClimbingStairs(int[] cost) {
+
+        // dp[i] = min(dp[i-1], dp[i-2]) + cost[i]
+        int n = cost.length;
+        if (cost == null || n == 0) {
+            return 0;
+        }
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 0;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 1]);
+        }
+        return dp[n];
+    }
+
+    public int uniquePaths1(int m, int n) {
+        //dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        int[][] dp = new int[m][n];
+        for (int i = 0; i < n; i++) {
+            dp[0][i] = 1;
+        }
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = 1;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m][n];
+    }
+
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+
+        //dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        if (obstacleGrid == null || obstacleGrid.length == 0) {
+            return 0;
+        }
+        int m = obstacleGrid.length;
+        int n = obstacleGrid[0].length;
+        int[][] dp = new int[m][n];
+        for (int i = 0; i < n && obstacleGrid[0][i] == 0; i++) {
+            dp[0][i] = 1;
+        }
+        for (int i = 0; i < m && obstacleGrid[i][0] == 0; i++) {
+            dp[i][0] = 1;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (obstacleGrid[i][j] == 1) {
+                    continue;
+                }
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+
+    public int integerBreak(int n) {
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 0;
+        for (int i = 2; i <= n; i++) {
+            int curMax = 0;
+            for (int j = 1; j < i; j++) {
+                Math.max(curMax, Math.max(i * (i - j), dp[i - j] * j));
+            }
+            dp[i] = curMax;
+        }
+        return dp[n];
+    }
+
+    public int numTrees(int n) {
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            for (int j = 0; j <= i; j++) {
+                dp[i] += dp[j] * dp[n - i];
+            }
+        }
+        return dp[n];
+    }
+
+    int robrob(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        if (n >= 2) {
+            dp[1] = Math.max(nums[0], nums[1]);
+        }
+        for (int i = 2; i < n; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+        }
+        return dp[n - 1];
+    }
+
+    int robIII(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        int dp1 = robrob(Arrays.copyOfRange(nums, 0, nums.length - 1));
+        int dp2 = robrob(Arrays.copyOfRange(nums, 1, nums.length));
+        return Math.max(dp1, dp2);
+    }
+
+    Map<TreeNode, Integer> memo = new HashMap<>();
+
+
+    public int rob(TreeNode root) {
+        int[] result = robHelper(root);
+        return Math.max(result[0], result[1]);
+    }
+
+    int[] robHelper(TreeNode root) {
+        if (root == null) {
+            return new int[2];
+        }
+        int[] result = new int[2];
+        int[] left = robHelper(root.left);
+        int[] right = robHelper(root.right);
+        result[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+        result[1] = left[0] + right[0] + root.val;
+        return result;
+    }
+
+
+    List<Integer> preOrderList = new ArrayList<>();
+
+    void preOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        preOrder(root.left);
+        preOrderList.add(root.val);
+        preOrder(root.right);
+    }
+
+
+    class Employee {
+        public int id;
+        public int importance;
+        public List<Integer> subordinates;
+    }
+}
