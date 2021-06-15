@@ -5,13 +5,12 @@ import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @Author: movie
  * @Date: 2020/6/4 15:06
  */
-@Configuration
+//@Configuration
 public class MyInstantiationAwareBeanPostProccessor implements InstantiationAwareBeanPostProcessor, ApplicationContextAware {
     private ApplicationContext applicationContext;
 

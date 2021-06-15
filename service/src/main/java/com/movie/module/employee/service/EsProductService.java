@@ -22,4 +22,15 @@ public class EsProductService {
         return esProductDao.findByNameOrSubTitleOrKeywords(keyword, keyword, keyword, page);
     }
 
+    public Iterable<EsProduct> getAll() {
+        return esProductDao.findAll();
+    }
+
+    public EsProduct save(EsProduct product) {
+        return esProductDao.save(product);
+    }
+
+    public void delete(long id) {
+        esProductDao.deleteById(id);
+    }
 }

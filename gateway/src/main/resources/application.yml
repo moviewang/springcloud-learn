@@ -10,3 +10,11 @@ nacos:
 dubbo:
   registry:
     address: nacos://${nacos.host}:${nacos.port}/?username=${nacos.username}&password=${nacos.password}
+elasticsearch:
+  schema: http
+  address: 127.0.0.1:9200
+  connectTimeout: 5000
+  socketTimeout: 5000
+  connectionRequestTimeout: 5000
+  maxConnectNum: 100
+  maxConnectPerRoute: 100
