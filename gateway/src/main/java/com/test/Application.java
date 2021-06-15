@@ -2,6 +2,7 @@ package com.test;
 
 import com.test.config.TestFb;
 import com.test.es.EsIndexService;
+import com.test.es.UserService;
 import common.module.demo.service.DemoService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.Iterator;
 
 /**
  * @Author: movie
@@ -24,6 +26,8 @@ public class Application {
     private DemoService demoService;
     @Resource
     private EsIndexService esIndexService;
+    @Resource
+    private UserService userService;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -34,7 +38,7 @@ public class Application {
         testFb.doSomething();
         System.out.println(testFb.getA());
         System.out.println(demoService.hello("world"));
-        esIndexService.deleteIndex("mydlq-user");
-        esIndexService.createIndex("mydlq-user");
+        userService.addDoc();
+        Iterable
     }
 }
