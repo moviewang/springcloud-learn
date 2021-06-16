@@ -11,7 +11,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.Iterator;
 
 /**
  * @Author: movie
@@ -39,6 +38,5 @@ public class Application {
         System.out.println(testFb.getA());
         System.out.println(demoService.hello("world"));
         userService.addDoc();
-        Iterable
     }
 }

@@ -29,7 +29,9 @@ public class UserService {
     private static final String INDEX_TYPE = "doc";
 
     public void addDoc() {
-        IndexRequest indexRequest = new IndexRequest(INDEX_NAME, INDEX_TYPE, "1");
+//        IndexRequest indexRequest = new IndexRequest(INDEX_NAME, INDEX_TYPE, "1");
+        IndexRequest indexRequest = new IndexRequest(INDEX_NAME);
+        indexRequest.id("1");
         UserInfo userInfo = UserInfo.builder()
                                     .name("张三")
                                     .age(29)
