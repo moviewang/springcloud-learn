@@ -4,10 +4,21 @@
 package com.cloud;
 
 import org.junit.Test;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class AppTest {
     @Test
     public void testAppHasAGreeting() {
         App classUnderTest = new App();
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.refresh();
+        context.publishEvent(new ApplicationEvent("test event") {
+            @Override
+            public String toString() {
+                return "aaaa";
+            }
+        });
+        context.close();
     }
 }

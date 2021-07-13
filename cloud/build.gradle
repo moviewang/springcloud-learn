@@ -19,8 +19,14 @@ ext {
 dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
     implementation 'org.apache.dubbo:dubbo-spring-boot-starter:2.7.7'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-sentinel', version: '2.2.1.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 dependencyManagement {

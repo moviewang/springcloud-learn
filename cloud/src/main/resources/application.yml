@@ -1,6 +1,15 @@
 spring:
   application:
     name: cloud-server
+  cloud:
+    sentinel:
+      log:
+        dir:
+      transport:
+        dashboard: localhost:8080
+      filter:
+        enabled: false
+
 server:
   port: 9003
 eureka:
@@ -9,4 +18,15 @@ eureka:
     fetch-registry: false
     service-url:
       defaultZone: http://localhost:9003/eureka/
+
+sentinel:
+  resources:
+    user:
+#      flow:
+#        count: 5
+      degrade:
+        count: 0.0001
+    hello:
+      flow:
+        count: 1
 
