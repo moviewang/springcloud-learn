@@ -3,14 +3,25 @@
  */
 package com.cloud;
 
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.junit.Test;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 public class AppTest {
+    @Resource
+    private TestRestTemplate testRestTemplate;
+
     @Test
-    public void testAppHasAGreeting() {
-        App classUnderTest = new App();
+    public void testAppHasAGreeting() throws IOException, InterruptedException {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.refresh();
         context.publishEvent(new ApplicationEvent("test event") {
@@ -20,5 +31,36 @@ public class AppTest {
             }
         });
         context.close();
+//        HttpClient httpClient = HttpClient.newHttpClient();
+//        HttpRequest request = HttpRequest.newBuilder(URI.create("file://d:/300.json"))
+//                                         .build();
+//        try {
+//            HttpResponse<Stream<String>> resp = httpClient.send(request,
+//                    HttpResponse.BodyHandlers.ofLines());
+//            resp.body().forEach(System.out::println);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        PoolingHttpClientConnectionManager poolingMgr = new PoolingHttpClientConnectionManager();
+        CloseableHttpClient httpClient = HttpClients.custom()
+                                                    .setConnectionManager(poolingMgr)
+                                                    .build();
+        httpClient.execute(new HttpGet("https://www.baidu.com"));
+        for (int i = 0; i < 3; i++) {
+            new Thread(() -> {
+                try {
+                    HttpClients.custom()
+                               .setConnectionManager(poolingMgr)
+                               .build()
+                               .execute(new HttpGet("https://www.baidu.com"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+        TimeUnit.SECONDS.sleep(5);
+        System.out.println(poolingMgr.getTotalStats().getLeased());
     }
 }

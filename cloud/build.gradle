@@ -21,6 +21,9 @@ dependencies {
     implementation 'org.apache.dubbo:dubbo-spring-boot-starter:2.7.7'
     implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-sentinel', version: '2.2.1.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+
 
 
     compileOnly 'org.projectlombok:lombok'

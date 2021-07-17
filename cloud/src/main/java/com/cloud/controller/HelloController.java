@@ -33,4 +33,10 @@ public class HelloController {
     public String test(BlockException e) {
         return "test";
     }
+
+    @GetMapping("baidu")
+    public String reqBaidu() {
+        return helloService.reqBaidu();
+    }
+
 }

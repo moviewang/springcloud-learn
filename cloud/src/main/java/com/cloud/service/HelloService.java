@@ -2,8 +2,12 @@ package com.cloud.service;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
+import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,6 +16,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class HelloService {
+    @Resource
+    private RestTemplate restTemplate;
 
     @SentinelResource(value = "user", blockHandler = "helloBlock", fallback = "helloFallback")
     public String hello(String name) {
@@ -31,4 +37,11 @@ public class HelloService {
     public String helloFallback(String name) {
         return "hello!" + "fallback";
     }
+
+    public String reqBaidu() {
+        ResponseEntity<String> resp = restTemplate.getForEntity(URI.create("http://www.baidu.com"), String.class);
+        return resp.getBody();
+    }
+
 }
+
