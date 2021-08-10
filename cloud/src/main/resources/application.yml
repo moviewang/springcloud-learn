@@ -1,4 +1,13 @@
 spring:
+  redis:
+    jedis:
+      pool:
+        max-active: 9
+        min-idle: 1
+        max-wait: 1000
+    port: 6379
+    host: localhost
+    timeout: 1000
   application:
     name: cloud-server
   cloud:
@@ -22,11 +31,13 @@ eureka:
 sentinel:
   resources:
     user:
-#      flow:
-#        count: 5
+      #      flow:
+      #        count: 5
       degrade:
         count: 0.0001
     hello:
       flow:
         count: 1
-
+pool:
+  pp:
+    max-active: 10
