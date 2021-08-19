@@ -2,13 +2,13 @@ server:
   port: 8083
 eureka:
   instance:
-    hostname: eureka-server
-    appname: eureka-center
+    hostname: eureka-center
+    appname: 注册中心
   client:
     registerWithEureka: false # 单点的时候设置为 false 禁止注册自身
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+      defaultZone: http://locahost:${server.port}/eureka
   server:
     enableSelfPreservation: false
     evictionIntervalTimerInMs: 4000
