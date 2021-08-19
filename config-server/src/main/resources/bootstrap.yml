@@ -1,0 +1,16 @@
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/moviewang/config-repo
+          username: 2314165649@qq.com
+          password: wdyaio920630
+          default-label: master
+          search-paths: '*'
+          basedir: d://tools/app/config
+server:
+  port: 8081

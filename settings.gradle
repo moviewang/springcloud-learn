@@ -3,5 +3,6 @@ include 'gateway'
 include 'service'
 include 'cloud'
 include 'common'
-
+include 'config-server'
+include 'config-client'
 
