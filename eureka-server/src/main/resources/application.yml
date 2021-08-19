@@ -8,7 +8,7 @@ eureka:
     registerWithEureka: false # 单点的时候设置为 false 禁止注册自身
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://locahost:${server.port}/eureka
+      defaultZone: http://test:123456@locahost:${server.port}/eureka
   server:
     enableSelfPreservation: false
     evictionIntervalTimerInMs: 4000
