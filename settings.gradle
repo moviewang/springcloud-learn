@@ -7,4 +7,6 @@ include 'config-server'
 include 'config-client'
 include 'eureka-server'
 include 'nacos-config'
+include 'nacos-service-provider'
+include 'nacos-service-consumer'
 
