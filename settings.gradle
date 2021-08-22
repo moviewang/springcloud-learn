@@ -6,4 +6,5 @@ include 'common'
 include 'config-server'
 include 'config-client'
 include 'eureka-server'
+include 'nacos-config'
 
