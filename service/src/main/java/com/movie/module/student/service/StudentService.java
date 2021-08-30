@@ -25,8 +25,9 @@ public class StudentService {
 
     //    @Transactional()
     public void addScore() {
-        int id = add();
-        int e = 1 / 0;
-        scoreMapper.insert(id, 23);
+        new Thread(() -> {
+            int id = add();
+            scoreMapper.insert(id, 23);
+        }).start();
     }
 }

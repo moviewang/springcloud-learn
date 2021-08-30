@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: movie
@@ -24,9 +25,19 @@ public class StudentController {
     private EmployeeService employeeService;
 
     @GetMapping
-    public List<Student> list() {
-        studentService.addScore();
-        System.out.println(employeeService.list());
+    public List<Student> list() throws InterruptedException {
+//        studentService.addScore();
+//        System.out.println(employeeService.list());
+        new Thread(() -> {
+            try {
+                System.out.println(studentMapper.list());
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        TimeUnit.SECONDS.sleep(1);
+        System.out.println(Thread.currentThread().getName());
         return studentMapper.list();
     }
 }
