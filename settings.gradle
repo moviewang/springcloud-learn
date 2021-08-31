@@ -9,4 +9,5 @@ include 'eureka-server'
 include 'nacos-config'
 include 'nacos-service-provider'
 include 'nacos-service-consumer'
+include 'gateway-center'
 
