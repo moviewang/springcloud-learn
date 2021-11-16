@@ -3,7 +3,6 @@ package com.cloud.config;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
@@ -20,7 +19,7 @@ import java.time.Duration;
  * @Author: movie
  * @Date: 2021/7/30 16:59
  */
-@Configuration(proxyBeanMethods = false)
+//@Configuration(proxyBeanMethods = false)
 public class RedisConfig {
     @Bean
     public JedisConnectionFactory jedisConnectionFactory(RedisProperties redisProperties) {

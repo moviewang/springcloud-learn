@@ -12,7 +12,7 @@ import java.util.List;
  * @Date: 2020/4/29 17:09
  */
 public interface StudentMapper {
-    @Select("select * from student")
+    @Select("select sleep(5) from dual")
     List<Student> list();
 
     @Insert("insert into t_student (name, age) values (#{name}, #{age})")

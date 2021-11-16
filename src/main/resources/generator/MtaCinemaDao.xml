@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.MtaCinemaDao">
+  <resultMap id="BaseResultMap" type="generate.MtaCinema">
+    <id column="CINEMAID" jdbcType="DECIMAL" property="cinemaid" />
+    <result column="ACCESSORID" jdbcType="DECIMAL" property="accessorid" />
+    <result column="ACCESSOR_CINEMAID" jdbcType="VARCHAR" property="accessorCinemaid" />
+    <result column="CINEMA_NAME" jdbcType="VARCHAR" property="cinemaName" />
+    <result column="CINEMA_LOGO" jdbcType="VARCHAR" property="cinemaLogo" />
+    <result column="CINEMA_ADD" jdbcType="VARCHAR" property="cinemaAdd" />
+    <result column="CONTACT" jdbcType="VARCHAR" property="contact" />
+    <result column="GET_TICKET_WAY" jdbcType="VARCHAR" property="getTicketWay" />
+    <result column="CITY_ID" jdbcType="VARCHAR" property="cityId" />
+    <result column="REGION_ID" jdbcType="VARCHAR" property="regionId" />
+    <result column="END_BUY_DATE" jdbcType="DECIMAL" property="endBuyDate" />
+    <result column="PRESALE_DAY" jdbcType="DECIMAL" property="presaleDay" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="LONGITUDE" jdbcType="VARCHAR" property="longitude" />
+    <result column="LATITUDE" jdbcType="VARCHAR" property="latitude" />
+    <result column="LOCATION" jdbcType="OTHER" property="location" />
+    <result column="IS_HAV_SHOW" jdbcType="DECIMAL" property="isHavShow" />
+    <result column="CITY_NAME" jdbcType="VARCHAR" property="cityName" />
+    <result column="REGION_NAME" jdbcType="VARCHAR" property="regionName" />
+    <result column="MERGE_CITY_ID" jdbcType="DECIMAL" property="mergeCityId" />
+    <result column="MERGE_REGION_ID" jdbcType="DECIMAL" property="mergeRegionId" />
+    <result column="ON_WORK" jdbcType="DECIMAL" property="onWork" />
+    <result column="CINEMA_ZHUANZI_CODE" jdbcType="VARCHAR" property="cinemaZhuanziCode" />
+    <result column="BUSINESS_CENTER" jdbcType="VARCHAR" property="businessCenter" />
+    <result column="CINEMA_HANDLE_FEE" jdbcType="VARCHAR" property="cinemaHandleFee" />
+    <result column="CINEMA_TYPE" jdbcType="VARCHAR" property="cinemaType" />
+    <result column="MERGE_CINEMA_ID" jdbcType="DECIMAL" property="mergeCinemaId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CINEMAID, ACCESSORID, ACCESSOR_CINEMAID, CINEMA_NAME, CINEMA_LOGO, CINEMA_ADD, CONTACT, 
+    GET_TICKET_WAY, CITY_ID, REGION_ID, END_BUY_DATE, PRESALE_DAY, CREATE_TIME, UPDATE_TIME, 
+    LONGITUDE, LATITUDE, "LOCATION", IS_HAV_SHOW, CITY_NAME, REGION_NAME, MERGE_CITY_ID, 
+    MERGE_REGION_ID, ON_WORK, CINEMA_ZHUANZI_CODE, BUSINESS_CENTER, CINEMA_HANDLE_FEE, 
+    CINEMA_TYPE, MERGE_CINEMA_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from MTA_CINEMA
+    where CINEMAID = #{cinemaid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from MTA_CINEMA
+    where CINEMAID = #{cinemaid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" keyColumn="CINEMAID" keyProperty="cinemaid" parameterType="generate.MtaCinema" useGeneratedKeys="true">
+    insert into MTA_CINEMA (ACCESSORID, ACCESSOR_CINEMAID, CINEMA_NAME, 
+      CINEMA_LOGO, CINEMA_ADD, CONTACT, 
+      GET_TICKET_WAY, CITY_ID, REGION_ID, 
+      END_BUY_DATE, PRESALE_DAY, CREATE_TIME, 
+      UPDATE_TIME, LONGITUDE, LATITUDE, 
+      "LOCATION", IS_HAV_SHOW, CITY_NAME, 
+      REGION_NAME, MERGE_CITY_ID, MERGE_REGION_ID, 
+      ON_WORK, CINEMA_ZHUANZI_CODE, BUSINESS_CENTER, 
+      CINEMA_HANDLE_FEE, CINEMA_TYPE, MERGE_CINEMA_ID
+      )
+    values (#{accessorid,jdbcType=DECIMAL}, #{accessorCinemaid,jdbcType=VARCHAR}, #{cinemaName,jdbcType=VARCHAR}, 
+      #{cinemaLogo,jdbcType=VARCHAR}, #{cinemaAdd,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{getTicketWay,jdbcType=VARCHAR}, #{cityId,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, 
+      #{endBuyDate,jdbcType=DECIMAL}, #{presaleDay,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, 
+      #{location,jdbcType=OTHER}, #{isHavShow,jdbcType=DECIMAL}, #{cityName,jdbcType=VARCHAR}, 
+      #{regionName,jdbcType=VARCHAR}, #{mergeCityId,jdbcType=DECIMAL}, #{mergeRegionId,jdbcType=DECIMAL}, 
+      #{onWork,jdbcType=DECIMAL}, #{cinemaZhuanziCode,jdbcType=VARCHAR}, #{businessCenter,jdbcType=VARCHAR}, 
+      #{cinemaHandleFee,jdbcType=VARCHAR}, #{cinemaType,jdbcType=VARCHAR}, #{mergeCinemaId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="CINEMAID" keyProperty="cinemaid" parameterType="generate.MtaCinema" useGeneratedKeys="true">
+    insert into MTA_CINEMA
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accessorid != null">
+        ACCESSORID,
+      </if>
+      <if test="accessorCinemaid != null">
+        ACCESSOR_CINEMAID,
+      </if>
+      <if test="cinemaName != null">
+        CINEMA_NAME,
+      </if>
+      <if test="cinemaLogo != null">
+        CINEMA_LOGO,
+      </if>
+      <if test="cinemaAdd != null">
+        CINEMA_ADD,
+      </if>
+      <if test="contact != null">
+        CONTACT,
+      </if>
+      <if test="getTicketWay != null">
+        GET_TICKET_WAY,
+      </if>
+      <if test="cityId != null">
+        CITY_ID,
+      </if>
+      <if test="regionId != null">
+        REGION_ID,
+      </if>
+      <if test="endBuyDate != null">
+        END_BUY_DATE,
+      </if>
+      <if test="presaleDay != null">
+        PRESALE_DAY,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="longitude != null">
+        LONGITUDE,
+      </if>
+      <if test="latitude != null">
+        LATITUDE,
+      </if>
+      <if test="location != null">
+        "LOCATION",
+      </if>
+      <if test="isHavShow != null">
+        IS_HAV_SHOW,
+      </if>
+      <if test="cityName != null">
+        CITY_NAME,
+      </if>
+      <if test="regionName != null">
+        REGION_NAME,
+      </if>
+      <if test="mergeCityId != null">
+        MERGE_CITY_ID,
+      </if>
+      <if test="mergeRegionId != null">
+        MERGE_REGION_ID,
+      </if>
+      <if test="onWork != null">
+        ON_WORK,
+      </if>
+      <if test="cinemaZhuanziCode != null">
+        CINEMA_ZHUANZI_CODE,
+      </if>
+      <if test="businessCenter != null">
+        BUSINESS_CENTER,
+      </if>
+      <if test="cinemaHandleFee != null">
+        CINEMA_HANDLE_FEE,
+      </if>
+      <if test="cinemaType != null">
+        CINEMA_TYPE,
+      </if>
+      <if test="mergeCinemaId != null">
+        MERGE_CINEMA_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accessorid != null">
+        #{accessorid,jdbcType=DECIMAL},
+      </if>
+      <if test="accessorCinemaid != null">
+        #{accessorCinemaid,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaName != null">
+        #{cinemaName,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaLogo != null">
+        #{cinemaLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaAdd != null">
+        #{cinemaAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="getTicketWay != null">
+        #{getTicketWay,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="endBuyDate != null">
+        #{endBuyDate,jdbcType=DECIMAL},
+      </if>
+      <if test="presaleDay != null">
+        #{presaleDay,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=OTHER},
+      </if>
+      <if test="isHavShow != null">
+        #{isHavShow,jdbcType=DECIMAL},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null">
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeCityId != null">
+        #{mergeCityId,jdbcType=DECIMAL},
+      </if>
+      <if test="mergeRegionId != null">
+        #{mergeRegionId,jdbcType=DECIMAL},
+      </if>
+      <if test="onWork != null">
+        #{onWork,jdbcType=DECIMAL},
+      </if>
+      <if test="cinemaZhuanziCode != null">
+        #{cinemaZhuanziCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessCenter != null">
+        #{businessCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaHandleFee != null">
+        #{cinemaHandleFee,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaType != null">
+        #{cinemaType,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeCinemaId != null">
+        #{mergeCinemaId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.MtaCinema">
+    update MTA_CINEMA
+    <set>
+      <if test="accessorid != null">
+        ACCESSORID = #{accessorid,jdbcType=DECIMAL},
+      </if>
+      <if test="accessorCinemaid != null">
+        ACCESSOR_CINEMAID = #{accessorCinemaid,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaName != null">
+        CINEMA_NAME = #{cinemaName,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaLogo != null">
+        CINEMA_LOGO = #{cinemaLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaAdd != null">
+        CINEMA_ADD = #{cinemaAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        CONTACT = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="getTicketWay != null">
+        GET_TICKET_WAY = #{getTicketWay,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        CITY_ID = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        REGION_ID = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="endBuyDate != null">
+        END_BUY_DATE = #{endBuyDate,jdbcType=DECIMAL},
+      </if>
+      <if test="presaleDay != null">
+        PRESALE_DAY = #{presaleDay,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longitude != null">
+        LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        LATITUDE = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        "LOCATION" = #{location,jdbcType=OTHER},
+      </if>
+      <if test="isHavShow != null">
+        IS_HAV_SHOW = #{isHavShow,jdbcType=DECIMAL},
+      </if>
+      <if test="cityName != null">
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null">
+        REGION_NAME = #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeCityId != null">
+        MERGE_CITY_ID = #{mergeCityId,jdbcType=DECIMAL},
+      </if>
+      <if test="mergeRegionId != null">
+        MERGE_REGION_ID = #{mergeRegionId,jdbcType=DECIMAL},
+      </if>
+      <if test="onWork != null">
+        ON_WORK = #{onWork,jdbcType=DECIMAL},
+      </if>
+      <if test="cinemaZhuanziCode != null">
+        CINEMA_ZHUANZI_CODE = #{cinemaZhuanziCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessCenter != null">
+        BUSINESS_CENTER = #{businessCenter,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaHandleFee != null">
+        CINEMA_HANDLE_FEE = #{cinemaHandleFee,jdbcType=VARCHAR},
+      </if>
+      <if test="cinemaType != null">
+        CINEMA_TYPE = #{cinemaType,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeCinemaId != null">
+        MERGE_CINEMA_ID = #{mergeCinemaId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CINEMAID = #{cinemaid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.MtaCinema">
+    update MTA_CINEMA
+    set ACCESSORID = #{accessorid,jdbcType=DECIMAL},
+      ACCESSOR_CINEMAID = #{accessorCinemaid,jdbcType=VARCHAR},
+      CINEMA_NAME = #{cinemaName,jdbcType=VARCHAR},
+      CINEMA_LOGO = #{cinemaLogo,jdbcType=VARCHAR},
+      CINEMA_ADD = #{cinemaAdd,jdbcType=VARCHAR},
+      CONTACT = #{contact,jdbcType=VARCHAR},
+      GET_TICKET_WAY = #{getTicketWay,jdbcType=VARCHAR},
+      CITY_ID = #{cityId,jdbcType=VARCHAR},
+      REGION_ID = #{regionId,jdbcType=VARCHAR},
+      END_BUY_DATE = #{endBuyDate,jdbcType=DECIMAL},
+      PRESALE_DAY = #{presaleDay,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      LATITUDE = #{latitude,jdbcType=VARCHAR},
+      "LOCATION" = #{location,jdbcType=OTHER},
+      IS_HAV_SHOW = #{isHavShow,jdbcType=DECIMAL},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      REGION_NAME = #{regionName,jdbcType=VARCHAR},
+      MERGE_CITY_ID = #{mergeCityId,jdbcType=DECIMAL},
+      MERGE_REGION_ID = #{mergeRegionId,jdbcType=DECIMAL},
+      ON_WORK = #{onWork,jdbcType=DECIMAL},
+      CINEMA_ZHUANZI_CODE = #{cinemaZhuanziCode,jdbcType=VARCHAR},
+      BUSINESS_CENTER = #{businessCenter,jdbcType=VARCHAR},
+      CINEMA_HANDLE_FEE = #{cinemaHandleFee,jdbcType=VARCHAR},
+      CINEMA_TYPE = #{cinemaType,jdbcType=VARCHAR},
+      MERGE_CINEMA_ID = #{mergeCinemaId,jdbcType=DECIMAL}
+    where CINEMAID = #{cinemaid,jdbcType=DECIMAL}
+  </update>
+</mapper>

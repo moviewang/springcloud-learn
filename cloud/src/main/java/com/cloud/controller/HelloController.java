@@ -6,6 +6,7 @@ import com.cloud.common.ResponseResultBody;
 import com.cloud.common.Result;
 import com.cloud.config.ConnectionPool;
 import com.cloud.config.PoolConfig;
+import com.cloud.module.employee.http.HttpService;
 import com.cloud.module.employee.service.EmployeeService;
 import com.cloud.service.HelloService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,10 +38,12 @@ public class HelloController {
     private RedisTemplate redisTemplate;
     @Resource
     private EmployeeService employeeService;
+    @Resource
+    private HttpService httpService;
 
     @GetMapping
     public String hello() {
-        return helloService.hello("jack");
+        return httpService.cinemas().toString();
     }
 
     @GetMapping("test")

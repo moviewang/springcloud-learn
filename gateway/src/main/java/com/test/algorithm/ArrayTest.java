@@ -28,6 +28,14 @@ public class ArrayTest {
         System.out.println(isUglyNumber(6));
         System.out.println(isUglyNumber(7));
         System.out.println(GetUglyNumber_Solution(100));
+        //language=JSON
+        String jsonStr = "{\n" +
+                "  \"hello\": \"world\",\n" +
+                "  \"test\": \"daa\\a\"\n" +
+                "}";
+
+//        JSONObject jsonObject = JSON.parseObject(jsonStr, Feature.);
+//        System.out.println(jsonObject);
     }
 
 
@@ -579,4 +587,50 @@ public class ArrayTest {
             j--;
         }
     }
+
+    public boolean checkValidString(String s) {
+        Stack<Integer> leftStack = new Stack<>();
+        Stack<Integer> asteriskStack = new Stack<>();
+
+        if (s == null || s.length() == 0) {
+            return true;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                leftStack.push(i);
+            } else if (c == '*') {
+                asteriskStack.push(i);
+            } else {
+                if (!leftStack.isEmpty()) {
+                    leftStack.pop();
+                } else if (!asteriskStack.isEmpty()) {
+                    asteriskStack.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        while (!leftStack.isEmpty() && !asteriskStack.isEmpty()) {
+            Integer leftIndex = leftStack.pop();
+            Integer asterisKIndex = asteriskStack.pop();
+            if (leftIndex > asterisKIndex) {
+                return false;
+            }
+        }
+        return leftStack.isEmpty();
+    }
+
+    public boolean isValid(String s) {
+        if (s == null) {
+            return false;
+        }
+        while (s.contains("{}") || s.contains("[]") || s.contains("()")) {
+            s = s.replaceAll("\\{\\}", "");
+            s = s.replaceAll("\\[\\]", "");
+            s = s.replaceAll("\\(\\)", "");
+        }
+        return s.isEmpty();
+    }
+
 }
