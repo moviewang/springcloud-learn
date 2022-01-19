@@ -1,5 +1,7 @@
 package com.bytedance.nacosconsumer;
 
+import com.bytedance.nacosconsumer.config.FeignConfig;
+import com.bytedance.nacosconsumer.module.service.EchoApiFallbackFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: movie
@@ -53,13 +56,14 @@ public class NacosConsumerApplication {
         }
 
         @GetMapping("openfeign/echo")
-        public String openfeignEcho() {
+        public String openfeignEcho() throws InterruptedException {
+            TimeUnit.SECONDS.sleep(4);
             return echoApi.echo("openfeign");
         }
     }
 
-    @FeignClient(name = "nacos-provider")
-    interface EchoApi {
+    @FeignClient(name = "nacos-provider", configuration = FeignConfig.class, fallbackFactory = EchoApiFallbackFactory.class)
+    public interface EchoApi {
         /**
          * test openfeign
          *

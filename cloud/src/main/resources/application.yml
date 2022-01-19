@@ -50,6 +50,14 @@ feign:
     config:
       default:
         loggerLevel: full
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+      useGzipDecoder: true
+  httpclient:
+    enabled: true
 logging:
   level:
     com.cloud.module.employee.http.NameApi: debug

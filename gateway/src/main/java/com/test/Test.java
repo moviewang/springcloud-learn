@@ -42,5 +42,20 @@ public class Test {
         strings.forEach(System.out::print);
 
     }
+
+    public int repeatedStringMatch(String a, String b) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int max = a.length() * 2 + b.length();
+        int ans = 0;
+        while (stringBuilder.length() <= max) {
+            stringBuilder.append(a);
+            ans++;
+            if (stringBuilder.toString().indexOf(b) != -1) {
+                return ans;
+            }
+        }
+        return -1;
+    }
+
 }
 

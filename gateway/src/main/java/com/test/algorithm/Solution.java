@@ -280,6 +280,10 @@ public class Solution {
         return count;
     }
 
+    public static String simpifyPath(String path) {
+        return "";
+    }
+
     public static int hammingWeight1(int n) {
         int count = 0;
         int temp = 1;

@@ -7,3 +7,24 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 1000
+        readTimeout: 2000
+  hystrix:
+    enabled: true
+
+
+
+#ribbon:
+#  ReadTimeout: 5000
+#  ConnectTimeout: 5000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
