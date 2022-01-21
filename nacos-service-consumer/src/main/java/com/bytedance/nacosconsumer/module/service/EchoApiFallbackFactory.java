@@ -14,7 +14,7 @@ public class EchoApiFallbackFactory implements FallbackFactory<NacosConsumerAppl
     public NacosConsumerApplication.EchoApi create(Throwable cause) {
         return string -> {
             if (cause instanceof RuntimeException) {
-                return "hystrix";
+                return "sentinel";
             }
             return string;
         };

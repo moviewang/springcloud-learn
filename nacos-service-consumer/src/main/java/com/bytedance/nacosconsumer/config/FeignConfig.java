@@ -20,5 +20,7 @@ public class FeignConfig {
     FeignLoggerFactory infoFeignLoggerFactory() {
         return new InfoFeignLoggerFactory();
     }
+
+
 }
 
