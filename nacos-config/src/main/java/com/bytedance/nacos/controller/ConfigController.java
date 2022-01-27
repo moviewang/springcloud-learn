@@ -1,9 +1,11 @@
 package com.bytedance.nacos.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.bytedance.nacos.config.LocalCacheConfig;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @Author: movie
@@ -13,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("config")
 @RefreshScope
 public class ConfigController {
-    @Value("${useLocalCache:false}")
-    private boolean useLocalCache;
+    @Resource
+    private LocalCacheConfig localCacheConfig;
 
     @RequestMapping("/get")
     public boolean get() {
-        return useLocalCache;
+        return localCacheConfig.isEnable();
     }
 }
